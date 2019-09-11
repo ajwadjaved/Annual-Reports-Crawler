@@ -1,5 +1,5 @@
 # Scrapes all pdfs off from www.annualreports.com 
-# Haven't tested yet but should be around 70963 pdfs since my empty search returned 5,479/5,674 stated companies
+# Haven't tested yet but should be around 70,963 pdfs since my empty search returned 5,479/5,674 stated companies
 
 import requests
 from urllib import request
