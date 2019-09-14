@@ -1,8 +1,7 @@
 # Scrapes all pdfs off from www.annualreports.com 
-# Haven't tested yet but should be around 70,963 pdfs since my empty search returned 5,479/5,674 stated companies
+# Haven't tested yet but should be somewhere around 70,963 pdfs since my empty search returned 5,479/5,674 stated companies
 
 import requests
-from urllib import request
 from urllib.parse import urljoin
 import pandas as pd
 from bs4 import BeautifulSoup as bs
@@ -29,17 +28,11 @@ def scrap_pdfs():
         soup= bs(response.text, "html.parser")     
 
         for link in soup.select("a[href$='.pdf']"): #go through all the pdfs in all the href links
-            #filename = os.path.join(folder_location,link['href'].split('/')[-1]) # Name the pdf files using the last portion of each link
+                #filename = os.path.join(folder_location,
+                ['href'].split('/')[-1]) # Name the pdf files using the last portion of each link
             
             filename = os.path.join(folder_location, str(a))
             a+=1 # file names are worthless for my task and naming them numerically would be more elegant
 
             with open(filename, 'wb') as f:
                 f.write(requests.get(urljoin(url,link['href'])).content)
-
-
-
-
-scrap_pdfs()
-
-
