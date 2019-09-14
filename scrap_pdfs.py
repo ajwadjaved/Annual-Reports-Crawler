@@ -16,23 +16,23 @@ def extract_table():
 
 def scrap_pdfs():
     df = pd.read_pickle('links.pkl')
-    a = 0 # for naming the filenames
+    a = 0 # for naming the filenames numerically
     
     for x in range(df.Link.count()): 
                 
         url = df['Link'][x] # reads the "Link" column from the dataframe
 
-        folder_location = r'/home/duke/Annual_Reports/Data' #SPECIFY FULL DIRECTORY (if folder doesn't exist will be created automatically)
+        folder_location = r'/home/duke/Annual_Reports/Data' # SPECIFY FULL DIRECTORY 
 
         response = requests.get(url)
         soup= bs(response.text, "html.parser")     
 
-        for link in soup.select("a[href$='.pdf']"): #go through all the pdfs in all the href links
-                #filename = os.path.join(folder_location,
-                ['href'].split('/')[-1]) # Name the pdf files using the last portion of each link
-            
+        for link in soup.select("a[href$='.pdf']"): #goes through all the .pdfs in all of the href links
+           
+            #filename = os.path.join(folder_location, ['href'].split('/')[-1]) # Names the pdf files using the last portion of each link
+           
             filename = os.path.join(folder_location, str(a))
-            a+=1 # file names are worthless for my task and naming them numerically would be more elegant
+            a+=1 
 
             with open(filename, 'wb') as f:
                 f.write(requests.get(urljoin(url,link['href'])).content)
